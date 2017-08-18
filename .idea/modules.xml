@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/simple-sbt-project.iml" filepath="$PROJECT_DIR$/.idea/modules/simple-sbt-project.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/simple-sbt-project-build.iml" filepath="$PROJECT_DIR$/.idea/modules/simple-sbt-project-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/game-of-life-scala.iml" filepath="$PROJECT_DIR$/.idea/modules/game-of-life-scala.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/game-of-life-scala-build.iml" filepath="$PROJECT_DIR$/.idea/modules/game-of-life-scala-build.iml" />
     </modules>
   </component>
 </project>

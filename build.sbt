@@ -1,6 +1,6 @@
 organization := "com.bosch.sh.dojo"
 
-name := "simple-sbt-project"
+name := "game-of-life-scala"
 
 version := "0.1.0"
 

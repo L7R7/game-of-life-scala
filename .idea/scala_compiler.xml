@@ -10,6 +10,6 @@
     <option name="uncheckedWarnings" value="true" />
     <option name="featureWarnings" value="true" />
     <option name="explainTypeErrors" value="true" />
-    <profile name="SBT 1" modules="akka-streaming,simple-sbt-project" />
+    <profile name="SBT 1" modules="akka-streaming,simple-sbt-project,game-of-life-scala" />
   </component>
 </project>
