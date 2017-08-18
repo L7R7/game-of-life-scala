@@ -21,7 +21,7 @@ object GameOfLife extends App {
     override def toString: String = "o"
   }
   object Dead extends CellStatus {
-    override def toString: String = "x"
+    override def toString: String = " "
   }
   case class Pos(x: Int, y: Int) {
     lazy val neighbors: Iterable[Pos] = {
@@ -76,8 +76,8 @@ object GameOfLife extends App {
     }
   }
 
-  Iterator.iterate(Board(width = 10, height = 8)) { board =>
-    Thread.sleep(500)
+  Iterator.iterate(Board(percentage = 90)) { board =>
+    Thread.sleep(80)
     board.next()
-  } take 20 foreach println
+  } take 400 foreach println
 }
