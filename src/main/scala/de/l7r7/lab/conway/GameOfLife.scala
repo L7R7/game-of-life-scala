@@ -15,9 +15,6 @@
  */
 package de.l7r7.lab.conway
 
-import scala.collection.mutable
-import scala.util.Random
-
 object GameOfLife extends App {
   trait CellStatus
   object Alive extends CellStatus {
@@ -42,21 +39,15 @@ object GameOfLife extends App {
 
   object Board {
     def apply(percentage: Int = 30, width: Int = 50, height: Int = 30): Board = {
-      val numCells: Int = (width - 2) * (height - 2)
-      val aliveCells: Int = (numCells * percentage / 100.0).floor.toInt
-      val initialCellStatus: List[CellStatus] = Iterator.range(1, numCells + 1)
-                                                .map(index => if (index <= aliveCells) Alive else Dead)
-                                                .toList
-      val shuffled: List[CellStatus] = Random.shuffle(initialCellStatus)
-
-      val buffer = mutable.Map[Pos, Cell]()
-      for {
+      val elements = for {
         y <- 0 until height
         x <- 0 until width
-      } if (x == 0 || x == width - 1 || y == 0 || y == height - 1) buffer(Pos(x, y)) = Cell(Dead)
-      else buffer(Pos(x, y)) = Cell(shuffled((y - 1) * (width - 2) + (x - 1)))
+      } yield {
+        if (x == 0 || x == width - 1 || y == 0 || y == height - 1) Pos(x, y) -> Cell(Dead)
+        else Pos(x, y) -> (if (Math.random() <= percentage / 100.0) Cell(Alive) else Cell(Dead))
+      }
 
-      new Board(buffer.toMap, width, height)
+      new Board(elements.toMap, width, height)
     }
   }
   case class Board private(cells: Map[Pos, Cell], width: Int, height: Int) {
@@ -85,9 +76,8 @@ object GameOfLife extends App {
     }
   }
 
-  private val boardsEierer: Iterator[Board] = Iterator.iterate(Board(percentage = 31, width = 1000, height = 10000)) { board =>
+  Iterator.iterate(Board(width = 10, height = 8)) { board =>
     Thread.sleep(500)
     board.next()
-  }
-  boardsEierer take 20 foreach println
+  } take 20 foreach println
 }
