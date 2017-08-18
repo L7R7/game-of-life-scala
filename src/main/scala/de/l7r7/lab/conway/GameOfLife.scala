@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Marco Ehrentreich <marco.ehrentreich@bosch.com>
+ * Copyright 2017 Leonhard Riedißer <leo008180@googlemail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package de.l7r7.lab.conway
 
 import scala.collection.mutable
 import scala.util.Random
