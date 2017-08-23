@@ -56,7 +56,7 @@ object GameOfLife extends App {
                                     .map(_._2.toString)
                                     .mkString(" ")
                                     .grouped(2 * width)
-                                    .foldLeft("")((acc: String, e: String) => acc + e + LineSeparator)
+                                    .mkString(LineSeparator)
 
     private val neighborsAlive = (neighbors: Iterable[Pos], cells: Map[Pos, Cell]) =>
       neighbors map (cells(_)) count (_ == Alive)
@@ -70,7 +70,7 @@ object GameOfLife extends App {
     }
 
     private val next = { current: Board =>
-      val isBorder = isBorderOfBoard(current.width, current.height)
+      val isBorder: (Pos) => Boolean = isBorderOfBoard(current.width, current.height)
       val newCells = current.cells.map { case (pos: Pos, cell: Cell) =>
         if (isBorder(pos)) pos -> cell
         else if (survives(pos, current.cells)) pos -> Alive
