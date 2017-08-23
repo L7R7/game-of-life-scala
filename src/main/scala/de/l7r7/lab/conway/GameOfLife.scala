@@ -15,14 +15,12 @@
  */
 package de.l7r7.lab.conway
 
+import de.l7r7.lab.conway.GameOfLife.Board.Cell
+
+import scala.concurrent.duration.{FiniteDuration, _}
+import scala.language.postfixOps
+
 object GameOfLife extends App {
-  trait CellStatus
-  object Alive extends CellStatus {
-    override def toString: String = "o"
-  }
-  object Dead extends CellStatus {
-    override def toString: String = " "
-  }
   case class Pos(x: Int, y: Int) {
     lazy val neighbors: Iterable[Pos] = {
       val all = for {
@@ -33,51 +31,64 @@ object GameOfLife extends App {
     }
   }
 
-  case class Cell(status: CellStatus) {
-    override def toString: String = status.toString
-  }
-
   object Board {
+    private type Cell = Char
+    private val LineSeparator = System.getProperty("line.separator")
+    private val Alive = 'o'
+    private val Dead = ' '
     def apply(percentage: Int = 30, width: Int = 50, height: Int = 30): Board = {
       val elements = for {
         y <- 0 until height
         x <- 0 until width
       } yield {
-        if (x == 0 || x == width - 1 || y == 0 || y == height - 1) Pos(x, y) -> Cell(Dead)
-        else Pos(x, y) -> (if (Math.random() <= percentage / 100.0) Cell(Alive) else Cell(Dead))
+        if (x == 0 || x == width - 1 || y == 0 || y == height - 1) Pos(x, y) -> Dead
+        else Pos(x, y) -> (if (Math.random() <= percentage / 100.0) Alive else Dead)
       }
-
       new Board(elements.toMap, width, height)
     }
   }
   case class Board private(cells: Map[Pos, Cell], width: Int, height: Int) {
-    override def toString: String = {
-      cells.toSeq
-      .sortWith((a: (Pos, Cell), b: (Pos, Cell)) => a._1.x.compareTo(b._1.x) < 0)
-      .sortWith((a: (Pos, Cell), b: (Pos, Cell)) => a._1.y.compareTo(b._1.y) < 0)
-      .map(_._2.toString)
-      .mkString(" ")
-      .grouped(2 * width)
-      .foldLeft("")((acc: String, e: String) => acc + e + "\r\n")
+    import Board._
+
+    override def toString: String = cells.toSeq
+                                    .sortWith((a: (Pos, Cell), b: (Pos, Cell)) => a._1.x.compareTo(b._1.x) < 0)
+                                    .sortWith((a: (Pos, Cell), b: (Pos, Cell)) => a._1.y.compareTo(b._1.y) < 0)
+                                    .map(_._2.toString)
+                                    .mkString(" ")
+                                    .grouped(2 * width)
+                                    .foldLeft("")((acc: String, e: String) => acc + e + LineSeparator)
+
+    private val neighborsAlive = (neighbors: Iterable[Pos], cells: Map[Pos, Cell]) =>
+      neighbors map (cells(_)) count (_ == Alive)
+
+    private def isBorderOfBoard(width: Int, height: Int)(pos: Pos) =
+      pos.x == 0 || pos.x == width - 1 || pos.y == 0 || pos.y == height - 1
+
+    private val survives = { (pos: Pos, cells: Map[Pos, Cell]) =>
+      val aliveNeighbors = neighborsAlive(pos.neighbors, cells)
+      aliveNeighbors == 2 || aliveNeighbors == 3
     }
 
-    def sumAlive(positions: Iterable[Pos], cells: Map[Pos, Cell]): Int =
-      positions map (cells(_)) count (_.status == Alive)
-
-    def next(): Board = {
-      val newCells = cells.map { entry =>
-        if (entry._1.x == 0 || entry._1.x == width - 1 || entry._1.y == 0 || entry._1.y == height - 1) entry
-        else {
-          val aliveNeighbors = sumAlive(entry._1.neighbors, cells)
-          entry._1 -> (if (aliveNeighbors == 2 || aliveNeighbors == 3) Cell(Alive) else Cell(Dead))
-        }
+    private val next = { current: Board =>
+      val isBorder = isBorderOfBoard(current.width, current.height)
+      val newCells = current.cells.map { case (pos: Pos, cell: Cell) =>
+        if (isBorder(pos)) pos -> cell
+        else if (survives(pos, current.cells)) pos -> Alive
+        else pos -> Dead
       }
-      copy(cells = newCells)
+      current.copy(cells = newCells)
+    }
+
+    def play(iterations: Int = 10, delay: FiniteDuration = 500 millis): Unit = {
+      val action = { board: Board =>
+        println(board)
+        Thread.sleep(delay.toMillis)
+        next(board)
+      }
+
+      Stream.iterate(this)(action).take(iterations).force
     }
   }
 
-  Iterator.iterate(Board(percentage = 90)) { board =>
-    Thread.sleep(80)
-    board.next()
-  } take 400 foreach println
+  Board(percentage = 90).play(80)
 }
