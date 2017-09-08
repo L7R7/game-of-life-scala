@@ -1,0 +1,57 @@
+<component name="ProjectCodeStyleConfiguration">
+  <code_scheme name="Project" version="173">
+    <option name="RIGHT_MARGIN" value="250" />
+    <option name="HTML_KEEP_BLANK_LINES" value="1" />
+    <option name="HTML_SPACE_INSIDE_EMPTY_TAG" value="true" />
+    <option name="FORMATTER_TAGS_ENABLED" value="true" />
+    <Properties>
+      <option name="KEEP_BLANK_LINES" value="true" />
+    </Properties>
+    <ScalaCodeStyleSettings>
+      <option name="PLACE_SELF_TYPE_ON_NEW_LINE" value="false" />
+      <option name="DO_NOT_ALIGN_BLOCK_EXPR_PARAMS" value="true" />
+      <option name="INDENT_BRACED_FUNCTION_ARGS" value="false" />
+      <option name="SPACES_AROUND_AT_IN_PATTERNS" value="true" />
+    </ScalaCodeStyleSettings>
+    <XML>
+      <option name="XML_KEEP_BLANK_LINES" value="1" />
+      <option name="XML_SPACE_INSIDE_EMPTY_TAG" value="true" />
+      <option name="XML_LEGACY_SETTINGS_IMPORTED" value="true" />
+    </XML>
+    <codeStyleSettings language="Groovy">
+      <option name="KEEP_BLANK_LINES_IN_DECLARATIONS" value="1" />
+      <option name="KEEP_BLANK_LINES_IN_CODE" value="1" />
+      <option name="KEEP_BLANK_LINES_BEFORE_RBRACE" value="1" />
+      <option name="ALIGN_MULTILINE_CHAINED_METHODS" value="true" />
+      <option name="ALIGN_MULTILINE_PARAMETERS_IN_CALLS" value="true" />
+      <option name="ALIGN_MULTILINE_FOR" value="false" />
+      <option name="KEEP_SIMPLE_BLOCKS_IN_ONE_LINE" value="true" />
+      <option name="METHOD_ANNOTATION_WRAP" value="0" />
+      <option name="FIELD_ANNOTATION_WRAP" value="0" />
+    </codeStyleSettings>
+    <codeStyleSettings language="JAVA">
+      <option name="KEEP_BLANK_LINES_IN_DECLARATIONS" value="1" />
+      <option name="KEEP_BLANK_LINES_IN_CODE" value="1" />
+      <option name="KEEP_BLANK_LINES_BEFORE_RBRACE" value="1" />
+      <option name="ALIGN_MULTILINE_CHAINED_METHODS" value="true" />
+    </codeStyleSettings>
+    <codeStyleSettings language="Scala">
+      <option name="KEEP_BLANK_LINES_IN_DECLARATIONS" value="1" />
+      <option name="KEEP_BLANK_LINES_IN_CODE" value="1" />
+      <option name="KEEP_BLANK_LINES_BEFORE_RBRACE" value="1" />
+      <option name="BLANK_LINES_BEFORE_IMPORTS" value="0" />
+      <option name="BLANK_LINES_AROUND_CLASS" value="0" />
+      <option name="BLANK_LINES_AROUND_METHOD" value="0" />
+      <option name="BLANK_LINES_AROUND_METHOD_IN_INTERFACE" value="0" />
+      <option name="ALIGN_MULTILINE_CHAINED_METHODS" value="true" />
+      <option name="ALIGN_MULTILINE_PARAMETERS_IN_CALLS" value="true" />
+      <option name="ALIGN_MULTILINE_BINARY_OPERATION" value="true" />
+      <option name="ALIGN_MULTILINE_EXTENDS_LIST" value="true" />
+      <option name="ALIGN_MULTILINE_PARENTHESIZED_EXPRESSION" value="true" />
+      <option name="PREFER_PARAMETERS_WRAP" value="true" />
+    </codeStyleSettings>
+    <codeStyleSettings language="ruby">
+      <option name="ALIGN_GROUP_FIELD_DECLARATIONS" value="true" />
+    </codeStyleSettings>
+  </code_scheme>
+</component>
