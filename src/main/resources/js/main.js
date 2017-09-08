@@ -20,15 +20,15 @@ function generateBoardDOM(height, width, cells) {
     for (let i = 0; i < height; i++) {
         for (let j = 0; j < width; j++) {
             if (cells[k]) {
-                result += "<div style='float:left' class='alive'></div>";
+                result += "<div style=\'float: left;\' class=\'alive\'></div>";
             } else {
-                result += "<div style='float:left' class='dead'></div>";
+                result += "<div style='float:left;' class='dead'></div>";
             }
             k += 1;
         }
-        result += "<div/>";
+        result += "<br>";
     }
-    result += "<br>";
+    result += "</div>";
     return result;
 }
 
