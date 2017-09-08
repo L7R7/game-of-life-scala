@@ -1,4 +1,4 @@
-organization := "com.bosch.sh.dojo"
+organization := "de.l7r7.lab"
 
 name := "game-of-life-scala"
 
