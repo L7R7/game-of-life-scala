@@ -50,13 +50,13 @@ object GameOfLife extends App {
   case class Board private(cells: Map[Pos, Cell], width: Int, height: Int) {
     import Board._
 
-    override def toString: String = cells.toSeq
-                                    .sortWith((a: (Pos, Cell), b: (Pos, Cell)) => a._1.x.compareTo(b._1.x) < 0)
-                                    .sortWith((a: (Pos, Cell), b: (Pos, Cell)) => a._1.y.compareTo(b._1.y) < 0)
-                                    .map(_._2.toString)
-                                    .mkString(" ")
-                                    .grouped(2 * width)
-                                    .mkString(LineSeparator)
+    override lazy val toString: String = cells.toSeq
+                                         .sortWith((a: (Pos, Cell), b: (Pos, Cell)) => a._1.x.compareTo(b._1.x) < 0)
+                                         .sortWith((a: (Pos, Cell), b: (Pos, Cell)) => a._1.y.compareTo(b._1.y) < 0)
+                                         .map(_._2.toString)
+                                         .mkString(" ")
+                                         .grouped(2 * width)
+                                         .mkString(LineSeparator)
 
     private val neighborsAlive = (neighbors: Iterable[Pos], cells: Map[Pos, Cell]) =>
       neighbors map (cells(_)) count (_ == Alive)
@@ -66,7 +66,7 @@ object GameOfLife extends App {
 
     private val survives = { (pos: Pos, cells: Map[Pos, Cell]) =>
       val aliveNeighbors = neighborsAlive(pos.neighbors, cells)
-      aliveNeighbors == 2 || aliveNeighbors == 3
+      (cells(pos) == Alive && aliveNeighbors == 2) || aliveNeighbors == 3
     }
 
     private val next = { current: Board =>
@@ -90,5 +90,5 @@ object GameOfLife extends App {
     }
   }
 
-  Board(percentage = 90).play(80)
+  Board(percentage = 60).play(80)
 }
